@@ -1,0 +1,9 @@
+<h1>Eventos</h1>
+<% @events.each do |event| %>
+    <p><%= event.date %></p>
+    <p><%= event.local %></p>
+    <p><%= event.name %></p>
+<% end %>
+
+<%= render "form" %>
+
