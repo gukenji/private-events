@@ -14,19 +14,17 @@
  *= require_self
 
  */
- @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
- @import url('https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@300&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@300&display=swap");
 
-$logo-font: 'Pacifico', cursive;
-$nav-font: 'Cormorant SC', serif;
-
+$logo-font: "Pacifico", cursive;
+$nav-font: "Cormorant SC", serif;
+$warning-color: #9e322d;
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
-
-
 
 .notification {
   display: flex;
@@ -48,16 +46,70 @@ $nav-font: 'Cormorant SC', serif;
 }
 
 .warning {
-  background-color: #FFF3F7;
+  background-color: #fff3f7;
   p {
-    color: #9E322D;
+    color: $warning-color;
   }
 }
 
 .success {
-  background: #F1F9F2;
+  background: #f1f9f2;
   p {
-    color: #5BA440;
+    color: #5ba440;
+  }
+}
+
+.error {
+  color: $warning-color;
+  padding-left: 3px;
+  margin-bottom: 5px;
+  margin-top: -5px;
+}
+
+.signup {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  .form-inputs {
+    margin-bottom: 20px;
+    .field_with_hint {
+      position: relative;
+    }
+    .input {
+      display: flex;
+      flex-direction: column;
+      input {
+        width: 400px;
+        margin: 10px 0;
+      }
+      .hint {
+        font-size: 13px;
+        position: absolute;
+        top: 4px;
+        left: 90px;
+        color: $warning-color;
+      }
+    }
+  }
+  .form-actions {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+  }
+}
+
+.button {
+  text-decoration: none;
+  border: none;
+  font-size: 20px;
+  border-radius: 5px;
+  font-family: $nav-font;
+  background-color: #a4a4a4;
+  color: white;
+  padding: 5px 10px;
+  cursor: pointer;
+  &:hover {
+    background-color: red;
   }
 }
 
@@ -75,11 +127,11 @@ nav {
     .logo {
       text-decoration: none;
       color: #ccc;
-      font-size: 27px;    
+      font-size: 27px;
       font-family: $logo-font;
-    }
-    .logo:hover {
-      color: #e2e2e2;
+      &:hover {
+        color: #e2e2e2;
+      }
     }
   }
   .nav-right {
@@ -95,9 +147,9 @@ nav {
     a {
       text-decoration: none;
       color: #a4a4a4;
-    }
-    a:hover {
-      color: #5c5a5a;
+      &:hover {
+        color: #5c5a5a;
+      }
     }
   }
 }
