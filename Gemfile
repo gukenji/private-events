@@ -48,6 +48,7 @@ gem 'devise'
 # Simple Form
 gem 'simple_form'
 
+
 # Use Sass to process CSS
 # gem "sassc-rails"
   gem 'sass-rails'
