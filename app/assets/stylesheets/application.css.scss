@@ -26,6 +26,19 @@ $warning-color: #9e322d;
   padding: 0;
 }
 
+html {
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+}
+
+
+.column {
+  flex-direction: column;
+}
+
 .notification {
   display: flex;
   padding: 15px 0;
@@ -66,12 +79,24 @@ $warning-color: #9e322d;
   margin-top: -5px;
 }
 
-.signup {
+.signup,
+.login {
   display: flex;
   align-items: center;
   flex-direction: column;
+  padding-top: 50px;
+  h2 {
+    font-family: $nav-font;
+    font-size: 30px;
+    padding-bottom: 30px;
+  }
   .form-inputs {
     margin-bottom: 20px;
+    #user_remember_me {
+     width: 15px;
+     margin: 0;
+     margin-right: 10px;
+    }
     .field_with_hint {
       position: relative;
     }
@@ -95,6 +120,28 @@ $warning-color: #9e322d;
     display: flex;
     gap: 30px;
     justify-content: center;
+    align-content: center;
+    align-items: center;
+    justify-items: center;
+    padding-bottom: 10px;
+    .form-actions-buttons{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      align-content: center;
+      justify-items: center;
+      gap: 30px;
+    }
+    .forgot-password{
+      a{
+        text-decoration: none;
+        color: black;
+        &:hover {
+          color: red;
+        }
+      }
+
+    }
   }
 }
 
@@ -122,7 +169,6 @@ nav {
   color: white;
   border-bottom: 1px solid black;
   box-shadow: 1px 1px 1px gray;
-  margin-bottom: 50px;
   .nav-left {
     .logo {
       text-decoration: none;
@@ -149,6 +195,61 @@ nav {
       color: #a4a4a4;
       &:hover {
         color: #5c5a5a;
+      }
+    }
+  }
+}
+
+.container {
+  display: flex;
+  padding: 50px 4%;
+  gap: 30px;
+  height: 100%;
+  .create-events-container {
+    display: flex;
+    align-self: center;
+    border: 1px dashed black;
+    border-radius: 3px;
+    height: 150px;
+    width: 400px;
+    .create-events-left {
+      display: flex;
+      height: 100%;
+      align-self: center;
+      padding: 0px 10px;
+      border-right: 1px dashed white;
+      width: 25px;
+      background-color: black;
+      h2 {
+        font-size: 12px;
+        width: 100%;
+        letter-spacing: 1px;
+        writing-mode: vertical-rl;
+        text-align: center;
+        transform: rotate(180deg) translateX(50%);
+        color: white;
+      }
+    }
+    .create-events-right {
+      form {
+        display: flex;
+        flex-direction: column;
+      }
+
+      padding: 10px 10px;
+      .control {
+        display: flex;
+        flex-direction: column;
+        padding-bottom: 10px;
+        .textarea {
+          width: 300px;
+        }
+      }
+      .button {
+        position: relative;
+        bottom: -20px;
+        align-self: center;
+        justify-self: center;
       }
     }
   }

@@ -1,9 +1,13 @@
-<h1>Eventos</h1>
-<% @events.each do |event| %>
-    <p><%= event.date %></p>
-    <p><%= event.local %></p>
-    <p><%= event.name %></p>
-<% end %>
-
-<%= render "form" %>
-
+<div class="container">
+  <div class="create-events-container">
+    <%= render "form" %>
+  </div>
+  <div class="next-events">
+    <h1>Próximos eventos</h1>
+    <% @events.each do |event| %>
+      <p><%= event.date %></p>
+      <p><%= event.local %></p>
+      <p><%= event.name %></p>
+    <% end %>
+  </div>
+</div>
