@@ -1,2 +1,42 @@
-<h1>Created events</h1>
-
+<div class="show-user-container">
+  <div class="user-events">
+    <% if current_user.id == @user.id %>
+      <h1>Eventos criados por <span>você</span></h1>
+    <% else %>
+      <h1>Eventos criados por <span><%= @user.name %></span> </h1>
+    <% end %>
+    <% @events.each do |event| %>
+      <div class="user-event-container">
+        <div class="user-event-color">
+          <p> </p>
+        </div>
+        <div class="user-event-detail">
+          <p>Data: <strong><%= event.date %></strong></p>
+          <p>Nome do evento: <strong><%= event.name %></strong></p>
+          <p>Local: <strong><%= event.local %></strong></p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="events-attendees">
+    <% if current_user.id == @user.id %>
+      <h1><span>você</span> irá participar de</h1>
+    <% else %>
+      <h1><span><%= @user.name %></span> irá participar de</h1>
+    <% end %>
+    <% attended_events = AttendeesEvent.where(attendee_id: @user.id) %>
+    <% attended_events.each do |attended_event| %>
+      <div class="events-attendees-container">
+        <div class="events-attendees-color">
+          <p> </p>
+        </div>
+        <div class="events-attendees-detail">
+          <p><strong>Data:</strong> <%= Event.find(attended_event.event_id).date%></p>
+          <p><strong>Nome do evento:</strong> <%= Event.find(attended_event.event_id).name%></p>
+          <p><strong>Local:</strong> <%= Event.find(attended_event.event_id).local%></p>
+        </div>
+      </div>
+    <% end %>
+    <%%>
+  </div>
+</div>

@@ -1,0 +1,21 @@
+<div class="container">
+  <% if user_signed_in? %>
+    <div class="create-events-container">
+      <%= render "form" %>
+    </div>
+  <% end %>
+  <div class="next-events">
+    <h1>Eventos anteriores</h1>
+    <% @past_events.each do |event| %>
+      <div class="next-events-detail">
+        <p><strong>Criado por: </strong><%= event.creator.name %></p>
+        <p><strong>Data: </strong> <%= event.date %></strong></p>
+        <p><strong>Nome do evento: </strong><%= event.name %></p>
+        <p><strong>Local: </strong><%= event.local %></p>
+        <% if user_signed_in? %>
+        <%= link_to "Detalhes", event_path(event.id), class: "button" %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

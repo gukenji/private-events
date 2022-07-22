@@ -7,6 +7,7 @@
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" %>
     <%= stylesheet_link_tag "https://fonts.googleapis.com/icon?family=Material+Icons" %>
+    
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
@@ -26,11 +27,16 @@
     <nav class="navbar">
       <div class="nav-left">
         <%= link_to 'Britevent', root_path, class: "logo" %>
+        <%= link_to 'eventos', events_path %>
+        <% if user_signed_in? %>
+          <%= link_to 'meus eventos', user_path(current_user.id) %>
+          <%= link_to 'criar evento', new_event_path %>
+        <% end%>
       </div>
       <div class="nav-right">
         <% if user_signed_in? %>
           <%= link_to current_user.email, edit_user_registration_path %>
-          <%= link_to "Logout", destroy_user_session_path, data: { turbo_method: :delete } %>
+          <%= button_to "Log out", destroy_user_session_path, method: :delete, data: { turbo: false } %>
         <% else %>
           <%= link_to 'Login', new_user_session_path %>
           <%= link_to 'Cadastre-se', new_user_registration_path %>

@@ -3,5 +3,5 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @events = @user.created_events
   end
-
+  
 end

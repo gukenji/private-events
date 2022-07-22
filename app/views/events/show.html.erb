@@ -1,0 +1,31 @@
+<div class="show-event-container">
+  <div class="event">
+    <h1>Detalhes do evento</h1>
+    <div class="event-container">
+      <div class="event-color">
+        <p> </p>
+      </div>
+      <div class="event-detail">
+        <p><strong>Criador: </strong><%= @event.creator.name %></p>
+        <p><strong>E-mail: </strong><%= @event.creator.email %></p>
+        <p><strong>Nome do evento: </strong><%= @event.name %></p>
+        <p><strong>Local: </strong><%= @event.local %></p>
+        <p><strong>Data: </strong><%= @event.date %></p>
+        <% if user_signed_in? && !AttendeesEvent.where(attendee_id: current_user.id, event_id: @event.id).exists? %>
+          <p><%= button_to "Ir para evento", attendees_events_path, params: { attendee_id: current_user.id, event_id: @event.id}, class: "button" %></p>
+        <% else %>
+          <% attended_event = AttendeesEvent.find_by(event_id: @event.id , attendee_id: current_user.id) %>
+          <p><%= button_to "Desistir do evento", attendees_event_path(id: attended_event.id, event_id: @event.id, attendee_id: current_user.id), method: :delete, class: "button" %></p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="event-attendees">
+    <h1>Lista de participantes:</h1>
+    <% attendees = AttendeesEvent.where(event_id: @event.id) %>
+    <% attendees.each do |attendee| %>
+      <p><%= User.find(attendee.attendee_id).name%></p>
+    <% end %>
+    <%%>
+  </div>
+</div>

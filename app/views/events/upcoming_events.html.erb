@@ -1,20 +1,12 @@
 <div class="container">
-  <div class="past-events">
-    <h1>Eventos anteriores</h1>
-    <% @past_events.each do |event| %>
-      <div class="past-events-detail">
-        <p><strong>Criado por: </strong><%= event.creator.name %></p>
-        <p><strong>Data: </strong> <%= event.date %></strong></p>
-        <p><strong>Nome do evento: </strong><%= event.name %></p>
-        <p><strong>Local: </strong><%= event.local %></p>
-        <% if user_signed_in? %>
-        <%= link_to "Detalhes", event_path(event.id), class: "button" %>
-        <% end %>
-      </div>
-    <% end %>
-  </div>
+  <% if user_signed_in? %>
+    <div class="create-events-container">
+      <%= render "form" %>
+    </div>
+  <% end %>
   <div class="next-events">
     <h1>Próximos eventos</h1>
+    <%= p params[:upcoming_events].present? %>
     <% @upcoming_events.each do |event| %>
       <div class="next-events-detail">
         <p><strong>Criado por: </strong><%= event.creator.name %></p>

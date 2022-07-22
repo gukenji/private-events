@@ -34,7 +34,6 @@ body {
   min-height: 100%;
 }
 
-
 .column {
   flex-direction: column;
 }
@@ -79,6 +78,50 @@ body {
   margin-top: -5px;
 }
 
+.home-container {
+  display: flex;
+  padding: 50px 4%;
+  justify-content: center;
+  flex-direction: column;
+  .home-title {
+    text-align: center;
+    h1 {
+      font-family: $logo-font;
+    }
+    h2 {
+      font-family: $nav-font;
+      span {
+        color: orange;
+      }
+    }
+  }
+  .home-infos {
+    display: flex;
+    gap: 50px;
+    padding-top: 30px;
+    justify-content: center;
+    .info {
+      p {
+       &:first-of-type{
+        font-weight: bold;
+        color: orange;
+        font-family: $nav-font;
+        display: flex;
+        align-items: center;
+        padding-bottom: 5px;
+        letter-spacing: 1px;
+        font-size: 18px;
+        span {
+          padding-right: 5px;
+          color: black;
+        }
+       }
+      }
+    }
+
+  }
+}
+
 .signup,
 .login {
   display: flex;
@@ -93,9 +136,9 @@ body {
   .form-inputs {
     margin-bottom: 20px;
     #user_remember_me {
-     width: 15px;
-     margin: 0;
-     margin-right: 10px;
+      width: 15px;
+      margin: 0;
+      margin-right: 10px;
     }
     .field_with_hint {
       position: relative;
@@ -124,7 +167,7 @@ body {
     align-items: center;
     justify-items: center;
     padding-bottom: 10px;
-    .form-actions-buttons{
+    .form-actions-buttons {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -132,15 +175,14 @@ body {
       justify-items: center;
       gap: 30px;
     }
-    .forgot-password{
-      a{
+    .forgot-password {
+      a {
         text-decoration: none;
         color: black;
         &:hover {
           color: red;
         }
       }
-
     }
   }
 }
@@ -156,7 +198,7 @@ body {
   padding: 5px 10px;
   cursor: pointer;
   &:hover {
-    background-color: red;
+    background-color: black;
   }
 }
 
@@ -170,6 +212,9 @@ nav {
   border-bottom: 1px solid black;
   box-shadow: 1px 1px 1px gray;
   .nav-left {
+    width: 100%;
+    display: flex;
+    gap: 30px;
     .logo {
       text-decoration: none;
       color: #ccc;
@@ -177,6 +222,21 @@ nav {
       font-family: $logo-font;
       &:hover {
         color: #e2e2e2;
+      }
+    }
+    a,
+    button {
+      text-decoration: none;
+      background-color: transparent;
+      border: none;
+      color: #a4a4a4;
+      font-size: 16px;
+      font-family: $nav-font;
+      letter-spacing: 1px;
+      align-self: center;
+      cursor: pointer;
+      &:hover {
+        color: #5c5a5a;
       }
     }
   }
@@ -188,11 +248,16 @@ nav {
     justify-content: flex-end;
     align-content: center;
     gap: 30px;
-    font-family: $nav-font;
-    letter-spacing: 1px;
-    a {
+    a,
+    button {
       text-decoration: none;
+      background-color: transparent;
+      border: none;
       color: #a4a4a4;
+      font-size: 16px;
+      font-family: $nav-font;
+      letter-spacing: 1px;
+      cursor: pointer;
       &:hover {
         color: #5c5a5a;
       }
@@ -207,7 +272,7 @@ nav {
   height: 100%;
   .create-events-container {
     display: flex;
-    align-self: center;
+
     border: 1px dashed black;
     border-radius: 3px;
     height: 150px;
@@ -250,6 +315,107 @@ nav {
         bottom: -20px;
         align-self: center;
         justify-self: center;
+      }
+    }
+  }
+}
+
+.next-events,
+.past-events {
+  flex: 1;
+  h1 {
+    font-family: $nav-font;
+    padding-bottom: 5px;
+  }
+  .next-events-detail,
+  .past-events-detail {
+    border-bottom: 1px solid black;
+    padding: 20px 0;
+    width: 70%;
+    p {
+      &:last-of-type {
+        padding-bottom: 10px;
+      }
+    }
+  }
+}
+
+.show-event-container {
+  display: flex;
+  padding: 50px 4%;
+  .event {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    .event-container {
+      border: 1px dashed black;
+      border-radius: 5px;
+      width: 80%;
+      display: flex;
+      .event-detail {
+        flex: 1;
+        padding: 10px 10px;
+        flex-direction: column;
+        .button_to {
+          display: flex;
+          justify-content: center;
+        }
+        p {
+          &:nth-last-of-type(2) {
+            padding-bottom: 15px;
+          }
+        }
+      }
+      .event-color {
+        background-color: black;
+        width: 20px;
+        border-right: 1px dashed black;
+      }
+    }
+  }
+
+  h1 {
+    font-family: $nav-font;
+
+    padding-bottom: 10px;
+    span {
+      color: orange;
+    }
+  }
+}
+
+.show-user-container {
+  display: flex;
+  padding: 50px 4%;
+  .user-events,
+  .events-attendees {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    h1 {
+      font-family: $nav-font;
+      padding-bottom: 10px;
+    }
+    span {
+      color: orange;
+    }
+    .user-event-color,
+    .events-attendees-color {
+      background-color: black;
+      width: 20px;
+      border-right: 1px dashed black;
+    }
+    .user-event-container,
+    .events-attendees-container {
+      border: 1px dashed black;
+      height: 120px;
+      margin-bottom: 20px;
+      border-radius: 5px;
+      width: 80%;
+      display: flex;
+      .user-event-detail,
+      .events-attendees-detail {
+        padding: 10px 10px;
       }
     }
   }
