@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   resources :events
   resources :users, :only => [:show]
   resources :attendees_events, :only => [:new, :create, :destroy]
-
+  resources :invitations, :only => [:index, :new, :create, :destroy]
   
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   

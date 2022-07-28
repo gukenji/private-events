@@ -7,9 +7,10 @@
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" %>
     <%= stylesheet_link_tag "https://fonts.googleapis.com/icon?family=Material+Icons" %>
-    
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <%= javascript_include_tag "application" %>
+    <%= javascript_include_tag "modal", "data-turbolinks-track" => true %>
   </head>
   <body>
     <% if flash[:notice] %>
@@ -35,6 +36,7 @@
       </div>
       <div class="nav-right">
         <% if user_signed_in? %>
+          <%= button_to "mail", invitations_path, method: :get, class: "material-icons"%>
           <%= link_to current_user.email, edit_user_registration_path %>
           <%= button_to "Log out", destroy_user_session_path, method: :delete, data: { turbo: false } %>
         <% else %>

@@ -1,0 +1,17 @@
+<button class="material-icons close" onclick="closeModal(this)">close</button>
+<h2>Convide usuários para o seu evento  <span><%= name %></span></h2>
+<div class="user-list-container">
+  <% @users.each do |user| %>
+    <% if user != current_user %>
+      <div class="user-list">
+        <% if !Invitation.where(invited_user_id: user.id, event_id: id).exists? %>
+          <%= button_to 'outgoing_mail',  invitations_path , params: { invited_user_id: user.id, event_id: id, sender_id: sender}, class: "material-icons" %>
+        <% else %>
+          <% invite = Invitation.where(invited_user_id: user.id, event_id: id)[0]%>
+          <%= button_to 'cancel',  invitation_path(id: invite.id), method: :delete, class: "material-icons" %>
+        <% end %>
+        <p class="username"><%= user.name%></p>
+      </div>
+    <%end%>
+  <%end%>
+</div>

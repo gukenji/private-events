@@ -2,29 +2,66 @@
   <div class="past-events">
     <h1>Eventos anteriores</h1>
     <% @past_events.each do |event| %>
-      <div class="past-events-detail">
-        <p><strong>Criado por: </strong><%= event.creator.name %></p>
-        <p><strong>Data: </strong> <%= event.date %></strong></p>
+      <div class="past-events-container">
+        <% if event.private == true %>
+          <div class="past-events-color orange">
+            <p> </p>
+          </div>
+        <% else %>
+          <div class="past-events-color black">
+            <p> </p>
+          </div>
+        <% end %>
+        <div class="past-events-detail">
+          <% if event.private == true %>
+            <p class="private-event">evento privado</p>
+          <% end %>
+          <p><strong>Criado por: </strong><%= event.creator.name %></p>
+          <p><strong>Data: </strong> <%= event.date %></strong></p>
         <p><strong>Nome do evento: </strong><%= event.name %></p>
         <p><strong>Local: </strong><%= event.local %></p>
         <% if user_signed_in? %>
-        <%= link_to "Detalhes", event_path(event.id), class: "button" %>
+          <%= link_to "Ir para", event_path(event.id), class: "button" %>
         <% end %>
       </div>
-    <% end %>
-  </div>
-  <div class="next-events">
-    <h1>Próximos eventos</h1>
-    <% @upcoming_events.each do |event| %>
+    </div>
+  <% end %>
+</div>
+<div class="next-events">
+  <h1>Próximos eventos</h1>
+  <% @upcoming_events.each do |event| %>
+    <div class="next-events-container">
+      <% if event.private == true %>
+        <div class="next-events-color orange">
+          <p> </p>
+        </div>
+      <% else %>
+        <div class="next-events-color black">
+          <p> </p>
+        </div>
+      <% end %>
       <div class="next-events-detail">
+        <% if event.private == true %>
+          <p class="private-event">evento privado</p>
+        <% end %>
         <p><strong>Criado por: </strong><%= event.creator.name %></p>
         <p><strong>Data: </strong> <%= event.date %></strong></p>
-        <p><strong>Nome do evento: </strong><%= event.name %></p>
-        <p><strong>Local: </strong><%= event.local %></p>
+      <p><strong>Nome do evento: </strong><%= event.name %></p>
+      <p><strong>Local: </strong><%= event.local %></p>
+      <div class="buttons-container">
         <% if user_signed_in? %>
-        <%= link_to "Detalhes", event_path(event.id), class: "button" %>
+          <%= link_to "Ir para", event_path(event.id), class: "button" %>
+        <% end %>
+        <% if user_signed_in? && !AttendeesEvent.where(attendee_id: current_user.id, event_id: event.id).exists? &&  event.date > DateTime.now %>
+          <p><%= button_to "Participar do evento", attendees_events_path, params: { attendee_id: current_user.id, event_id: event.id}, class: "button" %></p>
+        <% elsif event.date <  DateTime.now %>
+          <p><%= button_to "Desculpe, o evento já aconteceu!", event_path(event.id), method: :get, class: "button" %></p>
+        <% else %>
+          <% attended_event = AttendeesEvent.find_by(event_id: event.id , attendee_id: current_user.id) %>
+          <p><%= button_to "Desistir do evento", attendees_event_path(id: attended_event.id, event_id: event.id, attendee_id: current_user.id), method: :delete, class: "button" %></p>
         <% end %>
       </div>
-    <% end %>
+    </div>
   </div>
+<% end %>
 </div>

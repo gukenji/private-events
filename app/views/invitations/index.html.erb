@@ -1,0 +1,70 @@
+<div class="invites-container">
+  <div class="invites-received">
+    <h1>Convites recebidos</h1>
+    <% if @invites_received.exists? %>
+      <% @invites_received.each do |invite| %>
+        <div class="invites-received-container">
+          <% if Event.find(invite.event_id).private == true %>
+            <div class="invites-color orange">
+              <p> </p>
+            </div>
+          <% else %>
+            <div class="invites-color black">
+              <p> </p>
+              <%= invite.event_id%>
+            </div>
+          <% end %>
+          <% event = Event.find(invite.event_id) %>
+          <p class="tag"><%= event.name %></p>
+          <div class="event-users-invited">
+            <% if Event.find(invite.event_id).private == true %>
+              <p class="private-event">evento privado</p>
+            <% end %>
+            <p><strong>Criador: </strong><%= event.creator.name %></p>
+            <p><strong>E-mail: </strong><%= event.creator.email %></p>
+            <p><strong>Nome do evento: </strong><%= event.name %></p>
+            <p><strong>Local: </strong><%= event.local %></p>
+            <p><strong>Data: </strong><%= event.date %></p>
+            <div class="buttons-container">
+              <%= link_to "Ir para", event_path(event.id), class: "button" %>
+              <% if !AttendeesEvent.where(attendee_id: current_user.id, event_id: event.id).exists? &&  event.date > DateTime.now %>
+                <p><%= button_to "Participar do evento", attendees_events_path, params: { attendee_id: current_user.id, event_id: event.id}, class: "button" %></p>
+              <% elsif event.date <  DateTime.now %>
+                <p><%= button_to "Desculpe, o evento já aconteceu!", e, method: :get, class: "button" %></p>
+              <% else %>
+                <% attended_event = AttendeesEvent.find_by(event_id: event.id , attendee_id: current_user.id) %>
+                <p><%= button_to "Desistir do evento", attendees_event_path(id: attended_event.id, event_id: event.id, attendee_id: current_user.id), method: :delete, class: "button" %></p>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+  <!--
+  <div class="invites-sended">
+    <h1>Convites enviados</h1>
+    <% events = [] %>
+    <% @invites_sended.each do |invite| %>
+      <% events << invite.event_id %>
+    <% end %>
+    <% events.uniq! %>
+    <% for i in 0..events.length-1 do %>
+      <div class="invites-sended-container">
+        <div class="invites-color">
+          <p> </p>
+        </div>
+        <% id = Event.find(events[i]) %>
+        <p class="tag"><%= id.name%></p>
+        <div class="event-users-invited">
+          <% invitations = Invitation.where(event_id: id, sender_id: current_user.id) %>
+          <p><strong>Lista de convidados:</strong></p>
+          <% invitations.each do |invite| %>
+            <p><%= User.find(invite.invited_user_id).name %></p>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  -->
+</div>

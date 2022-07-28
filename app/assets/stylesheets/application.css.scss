@@ -102,23 +102,22 @@ body {
     justify-content: center;
     .info {
       p {
-       &:first-of-type{
-        font-weight: bold;
-        color: orange;
-        font-family: $nav-font;
-        display: flex;
-        align-items: center;
-        padding-bottom: 5px;
-        letter-spacing: 1px;
-        font-size: 18px;
-        span {
-          padding-right: 5px;
-          color: black;
+        &:first-of-type {
+          font-weight: bold;
+          color: orange;
+          font-family: $nav-font;
+          display: flex;
+          align-items: center;
+          padding-bottom: 5px;
+          letter-spacing: 1px;
+          font-size: 18px;
+          span {
+            padding-right: 5px;
+            color: black;
+          }
         }
-       }
       }
     }
-
   }
 }
 
@@ -190,7 +189,7 @@ body {
 .button {
   text-decoration: none;
   border: none;
-  font-size: 20px;
+  font-size: 18px;
   border-radius: 5px;
   font-family: $nav-font;
   background-color: #a4a4a4;
@@ -262,6 +261,13 @@ nav {
         color: #5c5a5a;
       }
     }
+    form {
+      display: flex;
+      .material-icons {
+        font-size: 18px;
+        font-family: "Material Icons";
+      }
+    }
   }
 }
 
@@ -270,16 +276,19 @@ nav {
   padding: 50px 4%;
   gap: 30px;
   height: 100%;
-  .create-events-container {
+  justify-content: center;
+  .create-events-container,
+  .edit-event-container {
     display: flex;
-
+    font-family: $nav-font;
     border: 1px dashed black;
     border-radius: 3px;
-    height: 150px;
+    height: 210px;
     width: 400px;
-    .create-events-left {
+    .create-events-left,
+    .edit-event-left {
       display: flex;
-      height: 100%;
+      height: inherit;
       align-self: center;
       padding: 0px 10px;
       border-right: 1px dashed white;
@@ -295,13 +304,18 @@ nav {
         color: white;
       }
     }
-    .create-events-right {
+    .create-events-right,
+    .edit-event-right {
       form {
         display: flex;
         flex-direction: column;
+        font-size: 20px;
+      }
+      #event_date {
+        margin-left: 10px;
       }
 
-      padding: 10px 10px;
+      padding: 20px 10px;
       .control {
         display: flex;
         flex-direction: column;
@@ -312,7 +326,7 @@ nav {
       }
       .button {
         position: relative;
-        bottom: -20px;
+        bottom: -30px;
         align-self: center;
         justify-self: center;
       }
@@ -323,23 +337,37 @@ nav {
 .next-events,
 .past-events {
   flex: 1;
+  display: flex;
+  flex-direction: column;
   h1 {
     font-family: $nav-font;
     padding-bottom: 5px;
   }
-  .next-events-detail,
-  .past-events-detail {
-    border-bottom: 1px solid black;
-    padding: 20px 0;
+  .past-events-container,
+  .next-events-container {
+    border: 1px dashed black;
+    height: MAX(auto, 130px);
+    margin-bottom: 20px;
+    border-radius: 5px;
     width: 70%;
-    p {
-      &:last-of-type {
-        padding-bottom: 10px;
+    display: flex;
+    .past-events-detail,
+    .next-events-detail {
+      padding: 15px 10px;
+      flex: 1;
+      p {
+        &:last-of-type {
+          padding-bottom: 10px;
+        }
       }
+    }
+    .past-events-color,
+    .next-events-color {
+      width: 20px;
+      border-right: 1px dashed black;
     }
   }
 }
-
 .show-event-container {
   display: flex;
   padding: 50px 4%;
@@ -358,7 +386,7 @@ nav {
         flex-direction: column;
         .button_to {
           display: flex;
-          justify-content: center;
+          
         }
         p {
           &:nth-last-of-type(2) {
@@ -401,14 +429,13 @@ nav {
     }
     .user-event-color,
     .events-attendees-color {
-      background-color: black;
       width: 20px;
       border-right: 1px dashed black;
     }
     .user-event-container,
     .events-attendees-container {
       border: 1px dashed black;
-      height: 120px;
+      height: MAX(auto,120px);
       margin-bottom: 20px;
       border-radius: 5px;
       width: 80%;
@@ -416,7 +443,146 @@ nav {
       .user-event-detail,
       .events-attendees-detail {
         padding: 10px 10px;
+        flex: 1;
+        }
+        p {
+          &:last-of-type {
+            padding-bottom: 10px;
+          }
+        }
       }
     }
   }
+
+
+.event_private {
+  &:before {
+    content: "Evento Privado? ";
+    font-size: 20px;
+    font-family: $nav-font;
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+.modal {
+  display: flex;
+  position: absolute;
+  flex-direction: column;
+  background: black;
+  color: white;
+  border-radius: 10px;
+  padding: 2% 4%;
+  top: 100px;
+  right: 25%;
+  height: 300px;
+  h2 {
+    font-family: $nav-font;
+    span {
+      color: orange;
+    }
+  }
+  .user-list-container {
+    display: flex;
+    flex-direction: column;
+    padding: 12px 0;
+    gap: 10px;
+    .user-list {
+      display: flex;
+      gap: 10px;
+
+      align-items: center;
+      .username {
+        padding-bottom: 0 !important;
+      }
+      .material-icons {
+        background: none;
+        border: none;
+        color: #a4a4a4;
+        cursor: pointer;
+        &:hover {
+          color: orange;
+        }
+      }
+    }
+  }
+}
+
+.close {
+  align-self: flex-end;
+  display: flex;
+  padding: 0;
+  background: none;
+  border: none;
+  margin: 0;
+  color: white !important;
+  cursor: pointer;
+  &:hover {
+    color: orange !important;
+  }
+}
+
+.invites-container {
+  display: flex;
+  padding: 50px 4%;
+  .invites-received,
+  .invites-sended {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    h1 {
+      font-family: $nav-font;
+      padding-bottom: 10px;
+      color: orange;
+    }
+    .invites-received-container,
+    .invites-sended-container {
+      .event-users-invited {
+        padding: 10px;
+        flex: 1;
+    
+      }
+      .tag {
+          font-size: 12px;
+          letter-spacing: 1px;
+          writing-mode: vertical-rl;
+          text-align: center;
+          transform: rotate(180deg) translateX(100%);
+          color: white;
+      }
+      border: 1px dashed black;
+      height: MAX(auto,120px);
+      margin-bottom: 20px;
+      border-radius: 5px;
+      width: 80%;
+      display: flex;
+
+      .invites-color {
+        width: 20px;
+        border-right: 1px dashed black;
+      }
+    }
+  }
+}
+
+.black {
+  background-color: black;
+}
+
+.orange {
+  background-color: orange;
+}
+
+.buttons-container {
+  display: flex;
+  gap: 5px;
+}
+
+.private-event {
+  font-weight: bold;
+  font-family: $nav-font;
+  text-align: end;
+  color: orange;
 }

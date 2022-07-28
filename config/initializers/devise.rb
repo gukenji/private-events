@@ -1,3 +1,4 @@
+Devise::TRUE_VALUES << ["on"]
 # frozen_string_literal: true
 
 # Assuming you have not yet modified this file, each configuration option below
@@ -164,7 +165,7 @@ Devise.setup do |config|
 
   # ==> Configuration for :rememberable
   # The time the user will be remembered without asking for credentials again.
-  # config.remember_for = 2.weeks
+  config.remember_for = 2.weeks
 
   # Invalidates all the remember me tokens when the user signs out.
   config.expire_all_remember_me_on_sign_out = true

@@ -14,7 +14,10 @@
       <div class="control">
         <%= f.input :local, label: "Local: ", required: true, input_html: { class: "textarea" }, wrapper: false, label_html: { class: "label" }, placeholder: "Onde será realizado seu evento?" %>
       </div>
+      <div class="control">
+        <%= f.input :private, label: "", input_html: { class: "checkbox" }, wrapper: false, label_html: { class: "event_private" } %>
+      </div>
     </div>
-    <%= f.button :submit, class: "button is-info", value:"NOVO EVENTO" %>
+    <%= f.button :submit, class: "button is-info", value:"Novo Evento" %>
   <% end %>
 </div>

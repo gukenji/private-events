@@ -11,8 +11,10 @@
         <p><strong>Nome do evento: </strong><%= @event.name %></p>
         <p><strong>Local: </strong><%= @event.local %></p>
         <p><strong>Data: </strong><%= @event.date %></p>
-        <% if user_signed_in? && !AttendeesEvent.where(attendee_id: current_user.id, event_id: @event.id).exists? %>
-          <p><%= button_to "Ir para evento", attendees_events_path, params: { attendee_id: current_user.id, event_id: @event.id}, class: "button" %></p>
+        <% if user_signed_in? && !AttendeesEvent.where(attendee_id: current_user.id, event_id: @event.id).exists? &&  @event.date > DateTime.now %>
+          <p><%= button_to "Participar do evento", attendees_events_path, params: { attendee_id: current_user.id, event_id: @event.id}, class: "button" %></p>
+        <% elsif @event.date <  DateTime.now %>
+          <p><%= button_to "Desculpe, o evento já aconteceu!", event_path(@event.id), method: :get, class: "button" %></p>
         <% else %>
           <% attended_event = AttendeesEvent.find_by(event_id: @event.id , attendee_id: current_user.id) %>
           <p><%= button_to "Desistir do evento", attendees_event_path(id: attended_event.id, event_id: @event.id, attendee_id: current_user.id), method: :delete, class: "button" %></p>

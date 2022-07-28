@@ -7,13 +7,29 @@
     <% end %>
     <% @events.each do |event| %>
       <div class="user-event-container">
-        <div class="user-event-color">
-          <p> </p>
-        </div>
+        <% if event.private == true %>
+          <div class="user-event-color orange">
+            <p> </p>
+          </div>
+        <% else %>
+          <div class="user-event-color black">
+            <p> </p>
+          </div>
+        <% end %>
         <div class="user-event-detail">
-          <p>Data: <strong><%= event.date %></strong></p>
-          <p>Nome do evento: <strong><%= event.name %></strong></p>
-          <p>Local: <strong><%= event.local %></strong></p>
+          <% if event.private == true %>
+            <p class="private-event">evento privado</p>
+          <% end %>
+          <p><strong>Data: </strong> <%= event.date %></p>
+          <p><strong>Nome do evento: </strong><%= event.name %></p>
+          <p><strong>Local: </strong><%= event.local %></p>
+          <%= link_to "Ir para", event_path(event.id), class: "button" %>
+          <%= link_to "Editar", edit_event_path(event.id), class: "button" %>
+          <%= link_to "Excluir", event_path(event.id), method: :delete, data: { turbo_method: :delete, turbo_confirm: "Você tem certeza?" }, class: "button" %>
+          <button class="button" onclick="modal(this)">Convidar</button>
+          <div id="invite-users-<%=event.id%>" class="hidden">
+            <%= render "invite_user", name: event.name, id: event.id, sender: current_user.id %>
+          </div>
         </div>
       </div>
     <% end %>
@@ -27,13 +43,26 @@
     <% attended_events = AttendeesEvent.where(attendee_id: @user.id) %>
     <% attended_events.each do |attended_event| %>
       <div class="events-attendees-container">
-        <div class="events-attendees-color">
-          <p> </p>
-        </div>
+        <% if Event.find(attended_event.event_id).private == true %>
+          <div class="user-event-color orange">
+            <p> </p>
+          </div>
+        <% else %>
+          <div class="user-event-color black">
+            <p> </p>
+          </div>
+        <% end %>
         <div class="events-attendees-detail">
+          <% if Event.find(attended_event.event_id).private == true %>
+            <p class="private-event">evento privado</p>
+          <% end %>
           <p><strong>Data:</strong> <%= Event.find(attended_event.event_id).date%></p>
           <p><strong>Nome do evento:</strong> <%= Event.find(attended_event.event_id).name%></p>
           <p><strong>Local:</strong> <%= Event.find(attended_event.event_id).local%></p>
+          <div class="buttons-container">
+            <%= link_to "Ir para", event_path(attended_event.event_id), class: "button" %>
+            <%= button_to "Desistir do evento", attendees_event_path(id: attended_event.id, event_id: attended_event.event_id, attendee_id: current_user.id), method: :delete, class: "button" %>
+          </div>
         </div>
       </div>
     <% end %>
