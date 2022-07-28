@@ -6,6 +6,5 @@ O objetivo desse projeto, proposto pelo Odin Project, é criar um site que tenha
 3. Criação,edição e exclusão de eventos, com a opção de ser um evento público ou privado;
 4. Usuário pode ingressar em um evento que está para acontecer;
 5. Usuário possui controle em sua página de quais eventos criou e quais irá participar;
-6. 
-7. Caixa de entrada contendo todos os eventos que o usuário foi convidado;
-8. 
+6. Caixa de entrada contendo todos os eventos que o usuário foi convidado;
+   
