@@ -9,11 +9,12 @@ class Event < ApplicationRecord
 
   scope :public_events, -> { where('private == ? ', false) }
   scope :private_events, -> { where('private == ? ', true) }
-  scope :invited_events, -> (user) { Event.joins(:invitations).where('invitations.invited_user_id == ?', user.id) }
+  scope :upcoming_invited_events, -> (user) { Event.joins(:invitations).where('invitations.invited_user_id == ?', user.id).where('date > ?', DateTime.now) }
+  scope :past_invited_events, -> (user) { Event.joins(:invitations).where('invitations.invited_user_id == ?', user.id).where('date < ?', DateTime.now) }
 
-  scope :upcoming_events, -> (user) { where('date > ?', DateTime.now).public_events + invited_events(user) }
-  # scope :upcoming_private_events, -> (user) { where('date > ?', DateTime.now).invited_events(user) }
-  scope :past_events, -> (user) { where('date < ?', DateTime.now).public_events + invited_events(user) }
+
+  scope :upcoming_events, -> (user) { where('date > ?', DateTime.now).public_events + upcoming_invited_events(user) }
+  scope :past_events, -> (user) { where('date < ?', DateTime.now).public_events + past_invited_events(user) }
 
   # def self.past_events
   #   where('date < ?', DateTime.now)
